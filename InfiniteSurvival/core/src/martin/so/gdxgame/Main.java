@@ -5,7 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import martin.so.gdxgame.controller.PlayerController;
+import martin.so.gdxgame.model.Obstacle;
 import martin.so.gdxgame.model.Player;
+import martin.so.gdxgame.view.ObstacleView;
 import martin.so.gdxgame.view.PlayerView;
 
 public class Main extends ApplicationAdapter {
@@ -16,12 +18,18 @@ public class Main extends ApplicationAdapter {
     private PlayerView playerView;
     private PlayerController playerController;
 
+    private Obstacle obstacle;
+    private ObstacleView obstacleView;
+
     @Override
     public void create() {
         batch = new SpriteBatch();
         player = new Player(100, 100);
         playerView = new PlayerView(player);
         playerController = new PlayerController(player);
+        // Temporary:
+        obstacle = new Obstacle(200, 200, 32, 32);
+        obstacleView = new ObstacleView(obstacle);
     }
 
     @Override
@@ -31,12 +39,14 @@ public class Main extends ApplicationAdapter {
         batch.begin();
         playerController.update();
         playerView.render(batch);
+        obstacleView.render(batch);
         batch.end();
     }
 
     @Override
     public void dispose() {
         playerView.dispose();
+        obstacleView.dispose();
         batch.dispose();
     }
 }
