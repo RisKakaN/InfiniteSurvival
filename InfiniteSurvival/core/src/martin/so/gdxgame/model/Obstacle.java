@@ -4,10 +4,10 @@ public class Obstacle implements ICollisionObject {
 
     private float posX;
     private float posY;
-    private int height;
-    private int width;
+    private float height;
+    private float width;
 
-    public Obstacle(float posX, float posY, int height, int width) {
+    public Obstacle(float posX, float posY, float height, float width) {
         this.posX = posX;
         this.posY = posY;
         this.height = height;
@@ -25,12 +25,22 @@ public class Obstacle implements ICollisionObject {
     }
 
     @Override
-    public int getHeight() {
+    public void setPosX(float newPosX) {
+        posX = newPosX;
+    }
+
+    @Override
+    public void setPosY(float newPosY) {
+        posY = newPosY;
+    }
+
+    @Override
+    public float getHeight() {
         return height;
     }
 
     @Override
-    public int getWidth() {
+    public float getWidth() {
         return width;
     }
 }

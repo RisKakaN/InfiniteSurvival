@@ -5,6 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import martin.so.gdxgame.controller.PlayerController;
+import martin.so.gdxgame.model.CollisionHandler;
+import martin.so.gdxgame.model.ICollisionHandler;
 import martin.so.gdxgame.model.Obstacle;
 import martin.so.gdxgame.model.Player;
 import martin.so.gdxgame.view.ObstacleView;
@@ -21,15 +23,20 @@ public class Main extends ApplicationAdapter {
     private Obstacle obstacle;
     private ObstacleView obstacleView;
 
+    private ICollisionHandler collisionHandler;
+
     @Override
     public void create() {
         batch = new SpriteBatch();
-        player = new Player(100, 100);
+        collisionHandler = new CollisionHandler();
+        player = new Player(100, 100, 32, 32, collisionHandler);
         playerView = new PlayerView(player);
         playerController = new PlayerController(player);
         // Temporary:
         obstacle = new Obstacle(200, 200, 32, 32);
         obstacleView = new ObstacleView(obstacle);
+
+        collisionHandler.addCollisionObject(obstacle);
     }
 
     @Override

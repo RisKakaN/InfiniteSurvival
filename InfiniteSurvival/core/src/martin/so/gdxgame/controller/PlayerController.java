@@ -16,15 +16,15 @@ public class PlayerController implements IPlayerController {
     @Override
     public void update() {
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            player.setPosY(player.getPosY() + 2);
+            player.moveNorth();
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            player.setPosY(player.getPosY() - 2);
+            player.moveSouth();
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            player.setPosX(player.getPosX() - 2);
+            player.moveWest();
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            player.setPosX(player.getPosX() + 2);
+            player.moveEast();
         }
     }
 }
