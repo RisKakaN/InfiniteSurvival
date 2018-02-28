@@ -35,7 +35,7 @@ public class Main extends ApplicationAdapter {
         // Temporary:
         obstacle = new Obstacle(200, 200, 32, 32);
         obstacleView = new ObstacleView(obstacle);
-
+        collisionHandler.addCollisionObject(player);
         collisionHandler.addCollisionObject(obstacle);
     }
 

@@ -1,6 +1,6 @@
 package martin.so.gdxgame.model;
 
-public class Obstacle implements ICollisionObject {
+public class Obstacle implements IObstacle, ICollisionObject {
 
     private float posX;
     private float posY;

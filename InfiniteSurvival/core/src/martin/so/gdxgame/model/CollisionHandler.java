@@ -40,7 +40,7 @@ public class CollisionHandler implements ICollisionHandler {
     @Override
     public boolean checkCollisions(ICollisionObject firstCollisionObject) {
         for (ICollisionObject secondCollisionObject : collisionObjects) {
-            if (collides(firstCollisionObject, secondCollisionObject)) {
+            if (!(firstCollisionObject.equals(secondCollisionObject)) && collides(firstCollisionObject, secondCollisionObject)) {
                 System.out.println("COLLISION");
                 return true;
             }
