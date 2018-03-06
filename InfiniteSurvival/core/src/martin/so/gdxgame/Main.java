@@ -5,10 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import martin.so.gdxgame.controller.PlayerController;
-import martin.so.gdxgame.model.CollisionHandler;
-import martin.so.gdxgame.model.ICollisionHandler;
-import martin.so.gdxgame.model.Obstacle;
-import martin.so.gdxgame.model.Player;
+import martin.so.gdxgame.model.*;
+import martin.so.gdxgame.view.EnemyView;
 import martin.so.gdxgame.view.ObstacleView;
 import martin.so.gdxgame.view.PlayerView;
 
@@ -19,6 +17,9 @@ public class Main extends ApplicationAdapter {
     private Player player;
     private PlayerView playerView;
     private PlayerController playerController;
+
+    private Enemy enemy;
+    private EnemyView enemyView;
 
     private Obstacle obstacle;
     private ObstacleView obstacleView;
@@ -35,8 +36,13 @@ public class Main extends ApplicationAdapter {
         // Temporary:
         obstacle = new Obstacle(200, 200, 32, 32);
         obstacleView = new ObstacleView(obstacle);
+
+        enemy = new Enemy(300, 300, 32, 32, collisionHandler);
+        enemyView = new EnemyView(enemy);
+
         collisionHandler.addCollisionObject(player);
         collisionHandler.addCollisionObject(obstacle);
+        collisionHandler.addCollisionObject(enemy);
     }
 
     @Override
@@ -47,6 +53,7 @@ public class Main extends ApplicationAdapter {
         playerController.update();
         playerView.render(batch);
         obstacleView.render(batch);
+        enemyView.render(batch);
         batch.end();
     }
 
@@ -54,6 +61,7 @@ public class Main extends ApplicationAdapter {
     public void dispose() {
         playerView.dispose();
         obstacleView.dispose();
+        enemyView.dispose();
         batch.dispose();
     }
 }
