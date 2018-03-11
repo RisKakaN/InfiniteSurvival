@@ -26,7 +26,7 @@ public class CollisionHandler implements ICollisionHandler {
         float secondObjectPosX = secondObject.getPosX();
         float secondObjectPosY = secondObject.getPosY();
 
-        return ((firstObjectWidth > secondObjectPosX) && // Left to right.
+        return ((firstObjectWidth  > secondObjectPosX) && // Left to right.
                 (firstObjectPosX < secondObjectWidth) && // Right to left.
                 (firstObjectPosY < secondObjectHeight) && // Top to bottom.
                 (firstObjectHeight > secondObjectPosY) // Bottom to top.

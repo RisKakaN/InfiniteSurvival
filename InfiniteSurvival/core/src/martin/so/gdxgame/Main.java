@@ -10,6 +10,9 @@ import martin.so.gdxgame.view.EnemyView;
 import martin.so.gdxgame.view.ObstacleView;
 import martin.so.gdxgame.view.PlayerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main extends ApplicationAdapter {
 
     private SpriteBatch batch;
@@ -20,6 +23,7 @@ public class Main extends ApplicationAdapter {
 
     private Enemy enemy;
     private EnemyView enemyView;
+    private List<IEnemy> enemies = new ArrayList<IEnemy>();
 
     private Obstacle obstacle;
     private ObstacleView obstacleView;
@@ -34,19 +38,28 @@ public class Main extends ApplicationAdapter {
         playerView = new PlayerView(player);
         playerController = new PlayerController(player);
         // Temporary:
-        obstacle = new Obstacle(200, 200, 32, 32);
+        obstacle = new Obstacle(0, 0, 32, 32);
         obstacleView = new ObstacleView(obstacle);
 
         enemy = new Enemy(300, 300, 32, 32, 100, 100, collisionHandler);
         enemyView = new EnemyView(enemy);
+        enemies.add(enemy);
 
         collisionHandler.addCollisionObject(player);
         collisionHandler.addCollisionObject(obstacle);
         collisionHandler.addCollisionObject(enemy);
     }
 
+    private void updateEnemies() {
+        for(IEnemy enemy : enemies) {
+            enemy.followTarget(player);
+        }
+    }
+
     @Override
     public void render() {
+        updateEnemies();
+
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();

@@ -1,6 +1,6 @@
 package martin.so.gdxgame.model;
 
-public interface ICharacter {
+public interface ICharacter extends ICollisionObject {
     void moveNorth();
     void moveSouth();
     void moveWest();
