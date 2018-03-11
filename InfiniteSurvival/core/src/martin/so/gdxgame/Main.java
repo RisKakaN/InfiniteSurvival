@@ -30,14 +30,14 @@ public class Main extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         collisionHandler = new CollisionHandler();
-        player = new Player(100, 100, 32, 32, collisionHandler);
+        player = new Player(100, 100, 32, 32, 100, 100, collisionHandler);
         playerView = new PlayerView(player);
         playerController = new PlayerController(player);
         // Temporary:
         obstacle = new Obstacle(200, 200, 32, 32);
         obstacleView = new ObstacleView(obstacle);
 
-        enemy = new Enemy(300, 300, 32, 32, collisionHandler);
+        enemy = new Enemy(300, 300, 32, 32, 100, 100, collisionHandler);
         enemyView = new EnemyView(enemy);
 
         collisionHandler.addCollisionObject(player);

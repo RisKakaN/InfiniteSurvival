@@ -9,15 +9,22 @@ public abstract class Character implements ICharacter, ICollisionObject {
     private float oldPosX;
     private float oldPosY;
 
+    private int maxHealth;
+    private int currentHealth;
+
     private ICollisionHandler collisionHandler;
 
-    public Character(float posX, float posY, float height, float width, ICollisionHandler collisionHandler) {
+    public Character(float posX, float posY, float height, float width, int maxHealth, int currentHealth, ICollisionHandler collisionHandler) {
         this.posX = posX;
         this.posY = posY;
         this.height = height;
         this.width = width;
         this.oldPosX = posX;
         this.oldPosY = posY;
+
+        this.maxHealth = maxHealth;
+        this.currentHealth = currentHealth;
+
         this.collisionHandler = collisionHandler;
     }
 
@@ -85,5 +92,30 @@ public abstract class Character implements ICharacter, ICollisionObject {
         if (collisionHandler.checkCollisions(this)) {
             posX = oldPosX;
         }
+    }
+
+    @Override
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    @Override
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+    @Override
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
+    @Override
+    public void setCurrentHealth(int currentHealth) {
+        this.currentHealth = currentHealth;
+    }
+
+    @Override
+    public boolean isAlive() {
+        return currentHealth > 0;
     }
 }
