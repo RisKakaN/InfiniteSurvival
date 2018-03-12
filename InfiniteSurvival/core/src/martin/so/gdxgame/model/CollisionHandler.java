@@ -41,7 +41,6 @@ public class CollisionHandler implements ICollisionHandler {
     public boolean checkCollisions(ICollisionObject firstCollisionObject) {
         for (ICollisionObject secondCollisionObject : collisionObjects) {
             if (!(firstCollisionObject.equals(secondCollisionObject)) && collides(firstCollisionObject, secondCollisionObject)) {
-                System.out.println("COLLISION");
                 return true;
             }
         }
@@ -55,7 +54,6 @@ public class CollisionHandler implements ICollisionHandler {
     public void addCollisionObject(ICollisionObject collisionObject) {
         if (!collisionObjects.contains(collisionObject)) {
             collisionObjects.add(collisionObject);
-            System.out.println("ADDED");
         }
     }
 }

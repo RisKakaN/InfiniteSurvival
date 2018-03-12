@@ -3,6 +3,7 @@ package martin.so.gdxgame;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import martin.so.gdxgame.controller.PlayerController;
 import martin.so.gdxgame.model.*;
@@ -16,6 +17,7 @@ import java.util.List;
 public class Main extends ApplicationAdapter {
 
     private SpriteBatch batch;
+    private OrthographicCamera playerCam;
 
     private Player player;
     private PlayerView playerView;
@@ -32,6 +34,8 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
+        playerCam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
         batch = new SpriteBatch();
         collisionHandler = new CollisionHandler();
         player = new Player(100, 100, 32, 32, 100, 100, collisionHandler);
@@ -51,7 +55,7 @@ public class Main extends ApplicationAdapter {
     }
 
     private void updateEnemies() {
-        for(IEnemy enemy : enemies) {
+        for (IEnemy enemy : enemies) {
             enemy.followTarget(player);
         }
     }
@@ -62,11 +66,19 @@ public class Main extends ApplicationAdapter {
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        batch.setProjectionMatrix((playerCam.combined));
+
         batch.begin();
         playerController.update();
         playerView.render(batch);
         obstacleView.render(batch);
         enemyView.render(batch);
+
+        // Update camera.
+        playerCam.update();
+        playerCam.position.set(player.getPosX() + player.getWidth() / 2, player.getPosY() + player.getHeight() / 2, 0);
+
         batch.end();
     }
 
