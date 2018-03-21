@@ -1,8 +1,12 @@
 package martin.so.gdxgame.model;
 
 import martin.so.gdxgame.testArea.TestArea;
+import martin.so.gdxgame.view.BasicAttackView;
+import martin.so.gdxgame.view.EnemyView;
+import martin.so.gdxgame.view.ObstacleView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -10,12 +14,19 @@ import java.util.List;
  */
 public class WorldObjects {
 
-    private static WorldObjects worldObjects = new WorldObjects();
+    private static final WorldObjects worldObjects = new WorldObjects();
 
     private Player player;
-    private List<ICollisionObject> collisionObjects = new ArrayList<ICollisionObject>();
-    private List<IEnemy> enemies = new ArrayList<IEnemy>();
-    private List<IObstacle> obstacles = new ArrayList<IObstacle>();
+    private List<ICollisionObject> collisionObjects;
+
+    private List<IEnemy> enemies;
+    private List<EnemyView> enemyViews;
+
+    private List<IObstacle> obstacles;
+    private List<ObstacleView> obstacleViews;
+
+    private List<IBasicAttack> basicAttacks;
+    private List<BasicAttackView> basicAttackViews;
 
     private CollisionHandler collisionHandler = CollisionHandler.getInstance();
 
@@ -24,10 +35,18 @@ public class WorldObjects {
     }
 
     private WorldObjects() {
-        player = new Player(100, 100, 32, 32, 100, 100);
     }
 
     public void initiateWorld(TestArea area) {
+        player = new Player(100, 100, 32, 32, 100, 100);
+        collisionObjects = new ArrayList<ICollisionObject>();
+        enemies = new ArrayList<IEnemy>();
+        enemyViews = new ArrayList<EnemyView>();
+        obstacles = new ArrayList<IObstacle>();
+        obstacleViews = new ArrayList<ObstacleView>();
+        basicAttacks = new ArrayList<IBasicAttack>();
+        basicAttackViews = new ArrayList<BasicAttackView>();
+
         enemies.addAll(area.getEnemies());
         obstacles.addAll(area.getObstacles());
 
@@ -46,7 +65,40 @@ public class WorldObjects {
         return enemies;
     }
 
+    public List<EnemyView> getEnemyViews() {
+        return enemyViews;
+    }
+
     public List<IObstacle> getObstacles() {
         return obstacles;
+    }
+
+    public List<ObstacleView> getObstacleViews() {
+        return obstacleViews;
+    }
+
+    public void addBasicAttack(IBasicAttack basicAttack) {
+        basicAttacks.add(basicAttack);
+        basicAttackViews.add(new BasicAttackView(basicAttack));
+    }
+
+    public void removeBasicAttack(IBasicAttack basicAttack) {
+        getBasicAttacks().remove(basicAttack);
+        List<BasicAttackView> basicAttackViews = new ArrayList<BasicAttackView>(getBasicAttackViews());
+        for(BasicAttackView basicAttackView : basicAttackViews) {
+            if(basicAttack == basicAttackView.getBasicAttack()) {
+                getBasicAttackViews().remove(basicAttackView);
+                basicAttackView.dispose();
+                basicAttackView = null;
+            }
+        }
+    }
+
+    public List<IBasicAttack> getBasicAttacks() {
+        return basicAttacks;
+    }
+
+    public List<BasicAttackView> getBasicAttackViews() {
+        return basicAttackViews;
     }
 }

@@ -9,6 +9,8 @@ public abstract class Character implements ICharacter, ICollisionObject {
     private float oldPosX;
     private float oldPosY;
 
+    private Direction direction;
+
     private int maxHealth;
     private int currentHealth;
 
@@ -21,6 +23,7 @@ public abstract class Character implements ICharacter, ICollisionObject {
         this.width = width;
         this.oldPosX = posX;
         this.oldPosY = posY;
+        this.direction = Direction.NORTH;
 
         this.maxHealth = maxHealth;
         this.currentHealth = currentHealth;
@@ -58,6 +61,7 @@ public abstract class Character implements ICharacter, ICollisionObject {
 
     @Override
     public void moveNorth() {
+        direction = Direction.NORTH;
         oldPosY = posY;
         setPosY(getPosY() + 2);
         if (collisionHandler.checkCollisions(this)) {
@@ -67,6 +71,7 @@ public abstract class Character implements ICharacter, ICollisionObject {
 
     @Override
     public void moveSouth() {
+        direction = Direction.SOUTH;
         oldPosY = posY;
         setPosY((getPosY() - 2));
         if (collisionHandler.checkCollisions(this)) {
@@ -76,6 +81,7 @@ public abstract class Character implements ICharacter, ICollisionObject {
 
     @Override
     public void moveWest() {
+        direction = Direction.WEST;
         oldPosX = posX;
         setPosX(getPosX() - 2);
         if (collisionHandler.checkCollisions(this)) {
@@ -85,11 +91,17 @@ public abstract class Character implements ICharacter, ICollisionObject {
 
     @Override
     public void moveEast() {
+        direction = Direction.EAST;
         oldPosX = posX;
         setPosX(getPosX() + 2);
         if (collisionHandler.checkCollisions(this)) {
             posX = oldPosX;
         }
+    }
+
+    @Override
+    public Direction getDirection() {
+        return direction;
     }
 
     @Override

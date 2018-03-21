@@ -5,6 +5,7 @@ public interface ICharacter extends ICollisionObject {
     void moveSouth();
     void moveWest();
     void moveEast();
+    Direction getDirection();
 
     int getCurrentHealth();
     void setCurrentHealth(int currentHealth);

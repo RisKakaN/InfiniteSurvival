@@ -26,5 +26,8 @@ public class PlayerController implements IPlayerController {
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             player.moveEast();
         }
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            player.basicAttack();
+        }
     }
 }

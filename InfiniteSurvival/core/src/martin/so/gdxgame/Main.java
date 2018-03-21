@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import martin.so.gdxgame.controller.PlayerController;
 import martin.so.gdxgame.model.*;
 import martin.so.gdxgame.testArea.TestArea;
+import martin.so.gdxgame.view.BasicAttackView;
 import martin.so.gdxgame.view.EnemyView;
 import martin.so.gdxgame.view.ObstacleView;
 import martin.so.gdxgame.view.PlayerView;
@@ -26,30 +27,26 @@ public class Main extends ApplicationAdapter {
     private PlayerView playerView;
     private PlayerController playerController;
 
-    private List<EnemyView> enemyViews = new ArrayList<EnemyView>();
-    private List<ObstacleView> obstacleViews = new ArrayList<ObstacleView>();
-
     @Override
     public void create() {
+        TestArea area = new TestArea();
+        worldObjects.initiateWorld(area);
+
         playerCam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         batch = new SpriteBatch();
-
-        TestArea area = new TestArea();
-        worldObjects.initiateWorld(area);
 
         player = worldObjects.getPlayer();
         playerView = new PlayerView(player);
         playerController = new PlayerController(player);
 
         for(IObstacle obstacle : worldObjects.getObstacles()) {
-            obstacleViews.add(new ObstacleView(obstacle));
+            worldObjects.getObstacleViews().add(new ObstacleView(obstacle));
         }
 
         for(IEnemy enemy : worldObjects.getEnemies()) {
-            enemyViews.add(new EnemyView(enemy));
+            worldObjects.getEnemyViews().add(new EnemyView(enemy));
         }
-
     }
 
     private void updateEnemies() {
@@ -61,6 +58,10 @@ public class Main extends ApplicationAdapter {
     @Override
     public void render() {
         updateEnemies();
+        List<IBasicAttack> basicAttacks = new ArrayList<IBasicAttack>(worldObjects.getBasicAttacks());
+        for(IBasicAttack basicAttack : basicAttacks) {
+            basicAttack.update();
+        }
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -70,11 +71,14 @@ public class Main extends ApplicationAdapter {
         batch.begin();
         playerController.update();
         playerView.render(batch);
-        for(EnemyView enemyView : enemyViews) {
+        for(EnemyView enemyView : worldObjects.getEnemyViews()) {
             enemyView.render(batch);
         }
-        for(ObstacleView obstacleView : obstacleViews) {
+        for(ObstacleView obstacleView : worldObjects.getObstacleViews()) {
             obstacleView.render(batch);
+        }
+        for(BasicAttackView basicAttackView : worldObjects.getBasicAttackViews()) {
+            basicAttackView.render(batch);
         }
 
         // Update camera.
@@ -87,11 +91,14 @@ public class Main extends ApplicationAdapter {
     @Override
     public void dispose() {
         playerView.dispose();
-        for(EnemyView enemyView : enemyViews) {
+        for(EnemyView enemyView : worldObjects.getEnemyViews()) {
             enemyView.dispose();
         }
-        for(ObstacleView obstacleView : obstacleViews) {
+        for(ObstacleView obstacleView : worldObjects.getObstacleViews()) {
             obstacleView.dispose();
+        }
+        for(BasicAttackView basicAttackView : worldObjects.getBasicAttackViews()) {
+            basicAttackView.dispose();
         }
         batch.dispose();
     }
