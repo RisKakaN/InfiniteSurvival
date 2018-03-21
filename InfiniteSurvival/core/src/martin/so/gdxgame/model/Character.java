@@ -12,9 +12,9 @@ public abstract class Character implements ICharacter, ICollisionObject {
     private int maxHealth;
     private int currentHealth;
 
-    private ICollisionHandler collisionHandler;
+    private ICollisionHandler collisionHandler = CollisionHandler.getInstance();
 
-    public Character(float posX, float posY, float height, float width, int maxHealth, int currentHealth, ICollisionHandler collisionHandler) {
+    Character(float posX, float posY, float height, float width, int maxHealth, int currentHealth) {
         this.posX = posX;
         this.posY = posY;
         this.height = height;
@@ -24,8 +24,6 @@ public abstract class Character implements ICharacter, ICollisionObject {
 
         this.maxHealth = maxHealth;
         this.currentHealth = currentHealth;
-
-        this.collisionHandler = collisionHandler;
     }
 
     @Override

@@ -2,17 +2,17 @@ package martin.so.gdxgame.view;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import martin.so.gdxgame.model.Enemy;
+import martin.so.gdxgame.model.IEnemy;
 
 public class EnemyView implements IView {
 
-    private Enemy enemy;
+    private IEnemy enemy;
 
     private Texture enemySprite;
 
     private static final String enemySpriteImage = "enemy_sprite.png";
 
-    public EnemyView(Enemy enemy) {
+    public EnemyView(IEnemy enemy) {
         this.enemy = enemy;
         enemySprite = new Texture(enemySpriteImage);
     }

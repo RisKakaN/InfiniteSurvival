@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import martin.so.gdxgame.controller.PlayerController;
 import martin.so.gdxgame.model.*;
+import martin.so.gdxgame.testArea.TestArea;
 import martin.so.gdxgame.view.EnemyView;
 import martin.so.gdxgame.view.ObstacleView;
 import martin.so.gdxgame.view.PlayerView;
@@ -16,6 +17,8 @@ import java.util.List;
 
 public class Main extends ApplicationAdapter {
 
+    private WorldObjects worldObjects = WorldObjects.getInstance();
+
     private SpriteBatch batch;
     private OrthographicCamera playerCam;
 
@@ -23,39 +26,34 @@ public class Main extends ApplicationAdapter {
     private PlayerView playerView;
     private PlayerController playerController;
 
-    private Enemy enemy;
-    private EnemyView enemyView;
-    private List<IEnemy> enemies = new ArrayList<IEnemy>();
-
-    private Obstacle obstacle;
-    private ObstacleView obstacleView;
-
-    private ICollisionHandler collisionHandler;
+    private List<EnemyView> enemyViews = new ArrayList<EnemyView>();
+    private List<ObstacleView> obstacleViews = new ArrayList<ObstacleView>();
 
     @Override
     public void create() {
         playerCam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         batch = new SpriteBatch();
-        collisionHandler = new CollisionHandler();
-        player = new Player(100, 100, 32, 32, 100, 100, collisionHandler);
+
+        TestArea area = new TestArea();
+        worldObjects.initiateWorld(area);
+
+        player = worldObjects.getPlayer();
         playerView = new PlayerView(player);
         playerController = new PlayerController(player);
-        // Temporary:
-        obstacle = new Obstacle(0, 0, 32, 32);
-        obstacleView = new ObstacleView(obstacle);
 
-        enemy = new Enemy(300, 300, 32, 32, 100, 100, collisionHandler);
-        enemyView = new EnemyView(enemy);
-        enemies.add(enemy);
+        for(IObstacle obstacle : worldObjects.getObstacles()) {
+            obstacleViews.add(new ObstacleView(obstacle));
+        }
 
-        collisionHandler.addCollisionObject(player);
-        collisionHandler.addCollisionObject(obstacle);
-        collisionHandler.addCollisionObject(enemy);
+        for(IEnemy enemy : worldObjects.getEnemies()) {
+            enemyViews.add(new EnemyView(enemy));
+        }
+
     }
 
     private void updateEnemies() {
-        for (IEnemy enemy : enemies) {
+        for (IEnemy enemy : worldObjects.getEnemies()) {
             enemy.followTarget(player);
         }
     }
@@ -72,8 +70,12 @@ public class Main extends ApplicationAdapter {
         batch.begin();
         playerController.update();
         playerView.render(batch);
-        obstacleView.render(batch);
-        enemyView.render(batch);
+        for(EnemyView enemyView : enemyViews) {
+            enemyView.render(batch);
+        }
+        for(ObstacleView obstacleView : obstacleViews) {
+            obstacleView.render(batch);
+        }
 
         // Update camera.
         playerCam.update();
@@ -85,8 +87,12 @@ public class Main extends ApplicationAdapter {
     @Override
     public void dispose() {
         playerView.dispose();
-        obstacleView.dispose();
-        enemyView.dispose();
+        for(EnemyView enemyView : enemyViews) {
+            enemyView.dispose();
+        }
+        for(ObstacleView obstacleView : obstacleViews) {
+            obstacleView.dispose();
+        }
         batch.dispose();
     }
 }

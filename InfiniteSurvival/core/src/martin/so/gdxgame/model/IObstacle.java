@@ -1,5 +1,5 @@
 package martin.so.gdxgame.model;
 
-public interface IObstacle {
+public interface IObstacle extends ICollisionObject {
 
 }

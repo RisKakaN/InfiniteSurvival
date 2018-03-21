@@ -5,10 +5,20 @@ import java.util.List;
 
 public class CollisionHandler implements ICollisionHandler {
 
-    private List<ICollisionObject> collisionObjects;
+    private List<ICollisionObject> collisionObjects = new ArrayList<ICollisionObject>();
 
-    public CollisionHandler() {
-        collisionObjects = new ArrayList<ICollisionObject>();
+    private static CollisionHandler collisionHandler = new CollisionHandler();
+
+    public static CollisionHandler getInstance() {
+        return collisionHandler;
+    }
+
+    private CollisionHandler() {
+    }
+
+    @Override
+    public void initiateCollisionObjects(List<ICollisionObject> collisionObjects) {
+        this.collisionObjects.addAll(collisionObjects);
     }
 
     /**

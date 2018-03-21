@@ -2,17 +2,17 @@ package martin.so.gdxgame.view;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import martin.so.gdxgame.model.Player;
+import martin.so.gdxgame.model.IPlayer;
 
 public class PlayerView implements IView {
 
-    private Player player;
+    private IPlayer player;
 
     private Texture playerSprite;
 
     private static final String playerSpriteImage = "player_sprite.png";
 
-    public PlayerView(Player player) {
+    public PlayerView(IPlayer player) {
         this.player = player;
         playerSprite = new Texture(playerSpriteImage);
     }
