@@ -9,14 +9,21 @@ public abstract class Character implements ICharacter, ICollisionObject {
     private float oldPosX;
     private float oldPosY;
 
+    private boolean movingNorth;
+    private boolean movingSouth;
+    private boolean movingWest;
+    private boolean movingEast;
+
     private Direction direction;
 
     private int maxHealth;
     private int currentHealth;
 
+    private float speed;
+
     private ICollisionHandler collisionHandler = CollisionHandler.getInstance();
 
-    Character(float posX, float posY, float height, float width, int maxHealth, int currentHealth) {
+    Character(float posX, float posY, float height, float width, int maxHealth, int currentHealth, float speed) {
         this.posX = posX;
         this.posY = posY;
         this.height = height;
@@ -27,6 +34,7 @@ public abstract class Character implements ICharacter, ICollisionObject {
 
         this.maxHealth = maxHealth;
         this.currentHealth = currentHealth;
+        this.speed = speed;
     }
 
     @Override
@@ -60,43 +68,81 @@ public abstract class Character implements ICharacter, ICollisionObject {
     }
 
     @Override
-    public void moveNorth() {
+    public void move(float delta) {
+        if(movingNorth) {
+            moveNorth(delta);
+        } else if (movingSouth) {
+            moveSouth(delta);
+        }
+        if(movingWest) {
+            moveWest(delta);
+        } else if(movingEast) {
+            moveEast(delta);
+        }
+        movingNorth = false;
+        movingSouth = false;
+        movingWest = false;
+        movingEast = false;
+    }
+
+    @Override
+    public void moveNorth(float delta) {
         direction = Direction.NORTH;
         oldPosY = posY;
-        setPosY(getPosY() + 2);
+        setPosY(getPosY() + speed * delta);
         if (collisionHandler.checkCollisions(this)) {
             posY = oldPosY;
         }
     }
 
     @Override
-    public void moveSouth() {
+    public void moveSouth(float delta) {
         direction = Direction.SOUTH;
         oldPosY = posY;
-        setPosY((getPosY() - 2));
+        setPosY((getPosY() - speed * delta));
         if (collisionHandler.checkCollisions(this)) {
             posY = oldPosY;
         }
     }
 
     @Override
-    public void moveWest() {
+    public void moveWest(float delta) {
         direction = Direction.WEST;
         oldPosX = posX;
-        setPosX(getPosX() - 2);
+        setPosX(getPosX() - speed * delta);
         if (collisionHandler.checkCollisions(this)) {
             posX = oldPosX;
         }
     }
 
     @Override
-    public void moveEast() {
+    public void moveEast(float delta) {
         direction = Direction.EAST;
         oldPosX = posX;
-        setPosX(getPosX() + 2);
+        setPosX(getPosX() + speed * delta);
         if (collisionHandler.checkCollisions(this)) {
             posX = oldPosX;
         }
+    }
+
+    @Override
+    public void setMovingNorth() {
+        movingNorth = true;
+    }
+
+    @Override
+    public void setMovingSouth() {
+        movingSouth = true;
+    }
+
+    @Override
+    public void setMovingWest() {
+        movingWest = true;
+    }
+
+    @Override
+    public void setMovingEast() {
+        movingEast = true;
     }
 
     @Override
@@ -122,6 +168,16 @@ public abstract class Character implements ICharacter, ICollisionObject {
     @Override
     public void setCurrentHealth(int currentHealth) {
         this.currentHealth = currentHealth;
+    }
+
+    @Override
+    public float getSpeed() {
+        return speed;
+    }
+
+    @Override
+    public void setSpeed(float speed) {
+        this.speed = speed;
     }
 
     @Override

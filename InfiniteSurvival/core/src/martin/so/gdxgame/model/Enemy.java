@@ -2,23 +2,24 @@ package martin.so.gdxgame.model;
 
 public class Enemy extends Character implements IEnemy {
 
-    public Enemy(float posX, float posY, float height, float width, int maxHealth, int currentHealth) {
-        super(posX, posY, height, width, maxHealth, currentHealth);
+    public Enemy(float posX, float posY, float height, float width, int maxHealth, int currentHealth, float speed) {
+        super(posX, posY, height, width, maxHealth, currentHealth, speed);
     }
 
     @Override
-    public void followTarget(ICharacter target) {
+    public void followTarget(ICharacter target, float delta) {
         if (!isInAttackRange(target)) {
             if (target.getPosX() + target.getWidth() < getPosX()) {
-                moveWest();
+                setMovingWest();
             } else if (target.getPosX() > getPosX() + getWidth()) {
-                moveEast();
+                setMovingEast();
             }
             if (target.getPosY() + target.getHeight() > getPosY()) {
-                moveNorth();
+                setMovingNorth();
             } else if (target.getPosY() < getPosY() + getHeight()) {
-                moveSouth();
+                setMovingSouth();
             }
+            move(delta);
         }
     }
 

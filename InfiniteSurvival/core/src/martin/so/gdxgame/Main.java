@@ -1,6 +1,5 @@
 package martin.so.gdxgame;
 
-
 import com.badlogic.gdx.Game;
 import martin.so.gdxgame.screens.GameScreen;
 

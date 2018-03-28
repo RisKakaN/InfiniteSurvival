@@ -38,7 +38,7 @@ public class WorldObjects {
     }
 
     public void initiateWorld(TestArea area) {
-        player = new Player(100, 100, 32, 32, 100, 100);
+        player = new Player(100, 100, 32, 32, 100, 100, 200);
         collisionObjects = new ArrayList<ICollisionObject>();
         enemies = new ArrayList<IEnemy>();
         enemyViews = new ArrayList<EnemyView>();

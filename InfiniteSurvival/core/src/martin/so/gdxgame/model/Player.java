@@ -4,8 +4,8 @@ public class Player extends Character implements IPlayer {
 
     private WorldObjects worldObjects = WorldObjects.getInstance();
 
-    public Player(float posX, float posY, float height, float width, int maxHealth, int currentHealth) {
-        super(posX, posY, height, width, maxHealth, currentHealth);
+    public Player(float posX, float posY, float height, float width, int maxHealth, int currentHealth, float speed) {
+        super(posX, posY, height, width, maxHealth, currentHealth, speed);
     }
 
     @Override

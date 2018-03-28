@@ -14,8 +14,8 @@ public class TestArea {
     private List<Obstacle> obstacles = new ArrayList<Obstacle>();
 
     public TestArea() {
-        enemies.add(new Enemy(100, 500, 32, 32, 100, 100));
-        enemies.add(new Enemy(150, 500, 32, 32, 100, 100));
+        enemies.add(new Enemy(100, 500, 32, 32, 100, 100, 150));
+        enemies.add(new Enemy(150, 500, 32, 32, 100, 100, 150));
 
         obstacles.add(new Obstacle(100, 300, 32, 32));
         obstacles.add(new Obstacle(150, 300, 32, 32));
