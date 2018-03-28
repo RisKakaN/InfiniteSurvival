@@ -20,6 +20,7 @@ public abstract class Character implements ICharacter, ICollisionObject {
     private int currentHealth;
 
     private float speed;
+    private float diagonalMovementReduction;
 
     private ICollisionHandler collisionHandler = CollisionHandler.getInstance();
 
@@ -69,14 +70,19 @@ public abstract class Character implements ICharacter, ICollisionObject {
 
     @Override
     public void move(float delta) {
-        if(movingNorth) {
+        if ((movingWest || movingEast) && (movingNorth || movingSouth)) {
+            diagonalMovementReduction = (float) Math.cos(Math.toRadians(45));
+        } else {
+            diagonalMovementReduction = 1;
+        }
+        if (movingNorth) {
             moveNorth(delta);
         } else if (movingSouth) {
             moveSouth(delta);
         }
-        if(movingWest) {
+        if (movingWest) {
             moveWest(delta);
-        } else if(movingEast) {
+        } else if (movingEast) {
             moveEast(delta);
         }
         movingNorth = false;
@@ -89,7 +95,7 @@ public abstract class Character implements ICharacter, ICollisionObject {
     public void moveNorth(float delta) {
         direction = Direction.NORTH;
         oldPosY = posY;
-        setPosY(getPosY() + speed * delta);
+        setPosY(getPosY() + speed * diagonalMovementReduction * delta);
         if (collisionHandler.checkCollisions(this)) {
             posY = oldPosY;
         }
@@ -99,7 +105,7 @@ public abstract class Character implements ICharacter, ICollisionObject {
     public void moveSouth(float delta) {
         direction = Direction.SOUTH;
         oldPosY = posY;
-        setPosY((getPosY() - speed * delta));
+        setPosY((getPosY() - speed * diagonalMovementReduction * delta));
         if (collisionHandler.checkCollisions(this)) {
             posY = oldPosY;
         }
@@ -109,7 +115,7 @@ public abstract class Character implements ICharacter, ICollisionObject {
     public void moveWest(float delta) {
         direction = Direction.WEST;
         oldPosX = posX;
-        setPosX(getPosX() - speed * delta);
+        setPosX(getPosX() - speed * diagonalMovementReduction * delta);
         if (collisionHandler.checkCollisions(this)) {
             posX = oldPosX;
         }
@@ -119,7 +125,7 @@ public abstract class Character implements ICharacter, ICollisionObject {
     public void moveEast(float delta) {
         direction = Direction.EAST;
         oldPosX = posX;
-        setPosX(getPosX() + speed * delta);
+        setPosX(getPosX() + speed * diagonalMovementReduction * delta);
         if (collisionHandler.checkCollisions(this)) {
             posX = oldPosX;
         }
