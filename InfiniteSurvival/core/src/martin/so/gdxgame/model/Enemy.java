@@ -43,4 +43,9 @@ public class Enemy extends Character implements IEnemy {
                 (firstObjectPosY < secondObjectHeight + attackRange) &&
                 (firstObjectHeight + attackRange > secondObjectPosY));
     }
+
+    @Override
+    public void update() {
+
+    }
 }

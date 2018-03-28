@@ -43,4 +43,9 @@ public class Obstacle implements IObstacle, ICollisionObject {
     public float getWidth() {
         return width;
     }
+
+    @Override
+    public void update() {
+
+    }
 }

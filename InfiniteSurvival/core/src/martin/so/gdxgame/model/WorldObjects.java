@@ -6,7 +6,6 @@ import martin.so.gdxgame.view.EnemyView;
 import martin.so.gdxgame.view.ObstacleView;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -69,6 +68,19 @@ public class WorldObjects {
         return enemyViews;
     }
 
+    public void removeEnemy(IEnemy enemy) {
+        collisionHandler.removeCollisionObject(enemy);
+        getEnemies().remove(enemy);
+        List<EnemyView> enemyViews = new ArrayList<EnemyView>(getEnemyViews());
+        for(EnemyView enemyView : enemyViews) {
+            if(enemy == enemyView.getObject()) {
+                getEnemyViews().remove(enemyView);
+                enemyView.dispose();
+                enemyView = null;
+            }
+        }
+    }
+
     public List<IObstacle> getObstacles() {
         return obstacles;
     }
@@ -83,10 +95,11 @@ public class WorldObjects {
     }
 
     public void removeBasicAttack(IBasicAttack basicAttack) {
+        collisionHandler.removeCollisionObject(basicAttack);
         getBasicAttacks().remove(basicAttack);
         List<BasicAttackView> basicAttackViews = new ArrayList<BasicAttackView>(getBasicAttackViews());
         for(BasicAttackView basicAttackView : basicAttackViews) {
-            if(basicAttack == basicAttackView.getBasicAttack()) {
+            if(basicAttack == basicAttackView.getObject()) {
                 getBasicAttackViews().remove(basicAttackView);
                 basicAttackView.dispose();
                 basicAttackView = null;

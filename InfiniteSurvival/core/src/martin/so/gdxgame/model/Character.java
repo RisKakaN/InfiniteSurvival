@@ -190,4 +190,9 @@ public abstract class Character implements ICharacter, ICollisionObject {
     public boolean isAlive() {
         return currentHealth > 0;
     }
+
+    @Override
+    public void takeDamage(int damage) {
+        this.currentHealth -= damage;
+    }
 }

@@ -7,4 +7,5 @@ public interface ICollisionHandler {
     boolean collides(ICollisionObject firstObject, ICollisionObject secondObject);
     boolean checkCollisions(ICollisionObject firstCollisionObject);
     void addCollisionObject(ICollisionObject collisionObject);
+    void removeCollisionObject(ICollisionObject collisionObject);
 }

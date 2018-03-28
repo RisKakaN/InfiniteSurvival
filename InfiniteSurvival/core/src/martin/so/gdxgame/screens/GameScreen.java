@@ -53,11 +53,14 @@ public class GameScreen implements Screen {
     }
 
     private void updateEnemies(float delta) {
-        for (IEnemy enemy : worldObjects.getEnemies()) {
+        List<IEnemy> enemies = new ArrayList<IEnemy>(worldObjects.getEnemies());
+        for (IEnemy enemy : enemies) {
+            if(!enemy.isAlive()) {
+                worldObjects.removeEnemy(enemy);
+            }
             enemy.followTarget(player, delta);
         }
     }
-
 
     @Override
     public void show() {
@@ -66,7 +69,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        System.out.println(delta);
         updatePlayer(delta);
         updateEnemies(delta);
         List<IBasicAttack> basicAttacks = new ArrayList<IBasicAttack>(worldObjects.getBasicAttacks());

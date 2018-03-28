@@ -51,6 +51,10 @@ public class CollisionHandler implements ICollisionHandler {
     public boolean checkCollisions(ICollisionObject firstCollisionObject) {
         for (ICollisionObject secondCollisionObject : collisionObjects) {
             if (!(firstCollisionObject.equals(secondCollisionObject)) && collides(firstCollisionObject, secondCollisionObject)) {
+                // Enemy takes damage from basic attack.
+                if(firstCollisionObject instanceof IBasicAttack && secondCollisionObject instanceof IEnemy) {
+                    ((IEnemy) secondCollisionObject).takeDamage(((IBasicAttack) firstCollisionObject).getDamage());
+                }
                 return true;
             }
         }
@@ -65,5 +69,10 @@ public class CollisionHandler implements ICollisionHandler {
         if (!collisionObjects.contains(collisionObject)) {
             collisionObjects.add(collisionObject);
         }
+    }
+
+    @Override
+    public void removeCollisionObject(ICollisionObject collisionObject) {
+        collisionObjects.remove(collisionObject);
     }
 }

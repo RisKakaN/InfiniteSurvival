@@ -14,4 +14,9 @@ public class Player extends Character implements IPlayer {
         worldObjects.addBasicAttack(basicAttack);
 
     }
+
+    @Override
+    public void update() {
+
+    }
 }

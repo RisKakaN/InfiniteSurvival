@@ -10,6 +10,7 @@ public class BasicAttack implements IBasicAttack, ICollisionObject {
     private float height;
     private float width;
 
+    private int damage;
     private float speed;
     private Direction direction;
     private boolean isTargetHit;
@@ -41,6 +42,7 @@ public class BasicAttack implements IBasicAttack, ICollisionObject {
         this.height = 10;
         this.width = 10;
 
+        this.damage = 10;
         this.speed = 4;
         this.direction = direction;
         this.isTargetHit = false;
@@ -88,6 +90,16 @@ public class BasicAttack implements IBasicAttack, ICollisionObject {
     @Override
     public boolean isTargetHit() {
         return isTargetHit;
+    }
+
+    @Override
+    public int getDamage() {
+        return damage;
+    }
+
+    @Override
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
     @Override

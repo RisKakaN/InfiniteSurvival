@@ -17,6 +17,10 @@ public class EnemyView implements IView {
         enemySprite = new Texture(enemySpriteImage);
     }
 
+    public IEnemy getObject() {
+        return enemy;
+    }
+
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.draw(enemySprite, enemy.getPosX(), enemy.getPosY());
     }

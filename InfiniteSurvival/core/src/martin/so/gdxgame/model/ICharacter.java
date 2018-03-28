@@ -21,4 +21,5 @@ public interface ICharacter extends ICollisionObject {
     void setSpeed(float speed);
 
     boolean isAlive();
+    void takeDamage(int damage);
 }

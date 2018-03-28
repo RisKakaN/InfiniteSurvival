@@ -9,4 +9,6 @@ public interface ICollisionObject {
 
     float getHeight();
     float getWidth();
+
+    void update();
 }

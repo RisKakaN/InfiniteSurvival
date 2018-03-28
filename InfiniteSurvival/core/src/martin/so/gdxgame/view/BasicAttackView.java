@@ -22,7 +22,7 @@ public class BasicAttackView implements IView {
         spriteBatch.draw(basicAttackSprite, basicAttack.getPosX(), basicAttack.getPosY());
     }
 
-    public IBasicAttack getBasicAttack() {
+    public IBasicAttack getObject() {
         return basicAttack;
     }
 
