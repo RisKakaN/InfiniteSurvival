@@ -1,4 +1,6 @@
-package martin.so.gdxgame.model;
+package martin.so.gdxgame.model.objects;
+
+import martin.so.gdxgame.model.core.ICollisionObject;
 
 public class Obstacle implements IObstacle, ICollisionObject {
 
@@ -42,10 +44,5 @@ public class Obstacle implements IObstacle, ICollisionObject {
     @Override
     public float getWidth() {
         return width;
-    }
-
-    @Override
-    public void update() {
-
     }
 }

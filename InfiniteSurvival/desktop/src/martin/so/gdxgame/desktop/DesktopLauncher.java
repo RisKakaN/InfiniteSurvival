@@ -5,11 +5,11 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import martin.so.gdxgame.Main;
 
 public class DesktopLauncher {
-	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "Infinite Survival";
-		config.width = 1280;
-		config.height = 720;
-		new LwjglApplication(new Main(), config);
-	}
+    public static void main(String[] arg) {
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.title = "Infinite Survival";
+        config.width = 1280;
+        config.height = 720;
+        new LwjglApplication(new Main(), config);
+    }
 }

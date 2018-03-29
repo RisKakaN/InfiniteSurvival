@@ -1,4 +1,4 @@
-package martin.so.gdxgame.model;
+package martin.so.gdxgame.model.core;
 
 import java.util.List;
 

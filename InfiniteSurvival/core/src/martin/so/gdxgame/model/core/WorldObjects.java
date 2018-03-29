@@ -1,5 +1,9 @@
-package martin.so.gdxgame.model;
+package martin.so.gdxgame.model.core;
 
+import martin.so.gdxgame.model.attacks.IBasicAttack;
+import martin.so.gdxgame.model.characters.IEnemy;
+import martin.so.gdxgame.model.characters.Player;
+import martin.so.gdxgame.model.objects.IObstacle;
 import martin.so.gdxgame.testArea.TestArea;
 import martin.so.gdxgame.view.BasicAttackView;
 import martin.so.gdxgame.view.EnemyView;
@@ -9,10 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Singleton class for storing all objects in the game.
+ * Singleton class for storing and handling all objects in the game.
  */
 public class WorldObjects {
-
     private static final WorldObjects worldObjects = new WorldObjects();
 
     private Player player;
@@ -37,7 +40,7 @@ public class WorldObjects {
     }
 
     public void initiateWorld(TestArea area) {
-        player = new Player(100, 100, 32, 32, 100, 100, 200);
+        player = new Player(100, 100, 32, 32, 100, 100, 300);
         collisionObjects = new ArrayList<ICollisionObject>();
         enemies = new ArrayList<IEnemy>();
         enemyViews = new ArrayList<EnemyView>();
@@ -51,7 +54,6 @@ public class WorldObjects {
 
         collisionObjects.addAll(area.getEnemies());
         collisionObjects.addAll(area.getObstacles());
-
         collisionHandler.addCollisionObject(player);
         collisionHandler.initiateCollisionObjects(collisionObjects);
     }
@@ -72,8 +74,8 @@ public class WorldObjects {
         collisionHandler.removeCollisionObject(enemy);
         getEnemies().remove(enemy);
         List<EnemyView> enemyViews = new ArrayList<EnemyView>(getEnemyViews());
-        for(EnemyView enemyView : enemyViews) {
-            if(enemy == enemyView.getObject()) {
+        for (EnemyView enemyView : enemyViews) {
+            if (enemy == enemyView.getObject()) {
                 getEnemyViews().remove(enemyView);
                 enemyView.dispose();
                 enemyView = null;
@@ -94,24 +96,24 @@ public class WorldObjects {
         basicAttackViews.add(new BasicAttackView(basicAttack));
     }
 
-    public void removeBasicAttack(IBasicAttack basicAttack) {
-        collisionHandler.removeCollisionObject(basicAttack);
-        getBasicAttacks().remove(basicAttack);
-        List<BasicAttackView> basicAttackViews = new ArrayList<BasicAttackView>(getBasicAttackViews());
-        for(BasicAttackView basicAttackView : basicAttackViews) {
-            if(basicAttack == basicAttackView.getObject()) {
-                getBasicAttackViews().remove(basicAttackView);
-                basicAttackView.dispose();
-                basicAttackView = null;
-            }
-        }
-    }
-
     public List<IBasicAttack> getBasicAttacks() {
         return basicAttacks;
     }
 
     public List<BasicAttackView> getBasicAttackViews() {
         return basicAttackViews;
+    }
+
+    public void removeBasicAttack(IBasicAttack basicAttack) {
+        collisionHandler.removeCollisionObject(basicAttack);
+        getBasicAttacks().remove(basicAttack);
+        List<BasicAttackView> basicAttackViews = new ArrayList<BasicAttackView>(getBasicAttackViews());
+        for (BasicAttackView basicAttackView : basicAttackViews) {
+            if (basicAttack == basicAttackView.getObject()) {
+                getBasicAttackViews().remove(basicAttackView);
+                basicAttackView.dispose();
+                basicAttackView = null;
+            }
+        }
     }
 }

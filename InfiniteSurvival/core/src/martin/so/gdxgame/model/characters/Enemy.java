@@ -1,4 +1,4 @@
-package martin.so.gdxgame.model;
+package martin.so.gdxgame.model.characters;
 
 public class Enemy extends Character implements IEnemy {
 
@@ -26,7 +26,7 @@ public class Enemy extends Character implements IEnemy {
     @Override
     public boolean isInAttackRange(ICharacter target) {
         // Temporary attack range for now.
-        int attackRange = 20;
+        int attackRange = 5;
 
         float firstObjectHeight = getPosY() + getHeight();
         float firstObjectWidth = getPosX() + getWidth();
@@ -42,10 +42,5 @@ public class Enemy extends Character implements IEnemy {
                 (firstObjectPosX < secondObjectWidth + attackRange) &&
                 (firstObjectPosY < secondObjectHeight + attackRange) &&
                 (firstObjectHeight + attackRange > secondObjectPosY));
-    }
-
-    @Override
-    public void update() {
-
     }
 }

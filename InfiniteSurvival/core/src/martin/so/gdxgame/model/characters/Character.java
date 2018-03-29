@@ -1,4 +1,9 @@
-package martin.so.gdxgame.model;
+package martin.so.gdxgame.model.characters;
+
+import martin.so.gdxgame.model.core.CollisionHandler;
+import martin.so.gdxgame.model.core.ICollisionHandler;
+import martin.so.gdxgame.model.core.ICollisionObject;
+import martin.so.gdxgame.utils.Direction;
 
 public abstract class Character implements ICharacter, ICollisionObject {
 
@@ -36,36 +41,6 @@ public abstract class Character implements ICharacter, ICollisionObject {
         this.maxHealth = maxHealth;
         this.currentHealth = currentHealth;
         this.speed = speed;
-    }
-
-    @Override
-    public float getPosX() {
-        return posX;
-    }
-
-    @Override
-    public void setPosX(float newPosX) {
-        this.posX = newPosX;
-    }
-
-    @Override
-    public float getPosY() {
-        return posY;
-    }
-
-    @Override
-    public void setPosY(float newPosY) {
-        this.posY = newPosY;
-    }
-
-    @Override
-    public float getHeight() {
-        return height;
-    }
-
-    @Override
-    public float getWidth() {
-        return width;
     }
 
     @Override
@@ -154,6 +129,36 @@ public abstract class Character implements ICharacter, ICollisionObject {
     @Override
     public Direction getDirection() {
         return direction;
+    }
+
+    @Override
+    public float getPosX() {
+        return posX;
+    }
+
+    @Override
+    public void setPosX(float newPosX) {
+        this.posX = newPosX;
+    }
+
+    @Override
+    public float getPosY() {
+        return posY;
+    }
+
+    @Override
+    public void setPosY(float newPosY) {
+        this.posY = newPosY;
+    }
+
+    @Override
+    public float getHeight() {
+        return height;
+    }
+
+    @Override
+    public float getWidth() {
+        return width;
     }
 
     @Override

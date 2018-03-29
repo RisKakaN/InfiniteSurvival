@@ -1,4 +1,7 @@
-package martin.so.gdxgame.model;
+package martin.so.gdxgame.model.core;
+
+import martin.so.gdxgame.model.attacks.IBasicAttack;
+import martin.so.gdxgame.model.characters.IEnemy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +39,7 @@ public class CollisionHandler implements ICollisionHandler {
         float secondObjectPosX = secondObject.getPosX();
         float secondObjectPosY = secondObject.getPosY();
 
-        return ((firstObjectWidth  > secondObjectPosX) && // Left to right.
+        return ((firstObjectWidth > secondObjectPosX) && // Left to right.
                 (firstObjectPosX < secondObjectWidth) && // Right to left.
                 (firstObjectPosY < secondObjectHeight) && // Top to bottom.
                 (firstObjectHeight > secondObjectPosY) // Bottom to top.
@@ -52,7 +55,7 @@ public class CollisionHandler implements ICollisionHandler {
         for (ICollisionObject secondCollisionObject : collisionObjects) {
             if (!(firstCollisionObject.equals(secondCollisionObject)) && collides(firstCollisionObject, secondCollisionObject)) {
                 // Enemy takes damage from basic attack.
-                if(firstCollisionObject instanceof IBasicAttack && secondCollisionObject instanceof IEnemy) {
+                if (firstCollisionObject instanceof IBasicAttack && secondCollisionObject instanceof IEnemy) {
                     ((IEnemy) secondCollisionObject).takeDamage(((IBasicAttack) firstCollisionObject).getDamage());
                 }
                 return true;
@@ -61,9 +64,6 @@ public class CollisionHandler implements ICollisionHandler {
         return false;
     }
 
-    /**
-     * Adds collisionObject to the list of collisionObjects.
-     */
     @Override
     public void addCollisionObject(ICollisionObject collisionObject) {
         if (!collisionObjects.contains(collisionObject)) {

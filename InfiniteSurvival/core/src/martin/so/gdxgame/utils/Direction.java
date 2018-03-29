@@ -1,4 +1,4 @@
-package martin.so.gdxgame.model;
+package martin.so.gdxgame.utils;
 
 public enum Direction {
     NORTH,

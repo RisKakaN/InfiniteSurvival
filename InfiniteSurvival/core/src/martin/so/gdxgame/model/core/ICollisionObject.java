@@ -1,7 +1,6 @@
-package martin.so.gdxgame.model;
+package martin.so.gdxgame.model.core;
 
 public interface ICollisionObject {
-
     float getPosX();
     float getPosY();
     void setPosX(float newPosX);
@@ -9,6 +8,4 @@ public interface ICollisionObject {
 
     float getHeight();
     float getWidth();
-
-    void update();
 }

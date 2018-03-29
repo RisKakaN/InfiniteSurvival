@@ -1,4 +1,7 @@
-package martin.so.gdxgame.model;
+package martin.so.gdxgame.model.characters;
+
+import martin.so.gdxgame.model.core.ICollisionObject;
+import martin.so.gdxgame.utils.Direction;
 
 public interface ICharacter extends ICollisionObject {
     void move(float delta);

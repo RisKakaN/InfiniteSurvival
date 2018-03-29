@@ -6,7 +6,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import martin.so.gdxgame.controller.PlayerController;
-import martin.so.gdxgame.model.*;
+import martin.so.gdxgame.model.attacks.IBasicAttack;
+import martin.so.gdxgame.model.characters.IEnemy;
+import martin.so.gdxgame.model.characters.Player;
+import martin.so.gdxgame.model.core.WorldObjects;
+import martin.so.gdxgame.model.objects.IObstacle;
 import martin.so.gdxgame.testArea.TestArea;
 import martin.so.gdxgame.view.BasicAttackView;
 import martin.so.gdxgame.view.EnemyView;
@@ -48,32 +52,13 @@ public class GameScreen implements Screen {
         }
     }
 
-    private void updatePlayer(float delta) {
-        player.move(delta);
-    }
-
-    private void updateEnemies(float delta) {
-        List<IEnemy> enemies = new ArrayList<IEnemy>(worldObjects.getEnemies());
-        for (IEnemy enemy : enemies) {
-            if(!enemy.isAlive()) {
-                worldObjects.removeEnemy(enemy);
-            }
-            enemy.followTarget(player, delta);
-        }
-    }
-
-    @Override
-    public void show() {
-
-    }
-
     @Override
     public void render(float delta) {
         updatePlayer(delta);
         updateEnemies(delta);
         List<IBasicAttack> basicAttacks = new ArrayList<IBasicAttack>(worldObjects.getBasicAttacks());
         for (IBasicAttack basicAttack : basicAttacks) {
-            basicAttack.update();
+            basicAttack.update(delta);
         }
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -99,6 +84,26 @@ public class GameScreen implements Screen {
         playerCam.position.set(player.getPosX() + player.getWidth() / 2, player.getPosY() + player.getHeight() / 2, 0);
 
         batch.end();
+    }
+
+    private void updatePlayer(float delta) {
+        player.move(delta);
+    }
+
+    private void updateEnemies(float delta) {
+        List<IEnemy> enemies = new ArrayList<IEnemy>(worldObjects.getEnemies());
+        for (IEnemy enemy : enemies) {
+            if (!enemy.isAlive()) {
+                worldObjects.removeEnemy(enemy);
+            } else {
+                enemy.followTarget(player, delta);
+            }
+        }
+    }
+
+    @Override
+    public void show() {
+
     }
 
     @Override
