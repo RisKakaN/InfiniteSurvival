@@ -26,21 +26,7 @@ public class Enemy extends Character implements IEnemy {
     @Override
     public boolean isInAttackRange(ICharacter target) {
         // Temporary attack range for now.
-        int attackRange = 5;
-
-        float firstObjectHeight = getPosY() + getHeight();
-        float firstObjectWidth = getPosX() + getWidth();
-        float firstObjectPosX = getPosX();
-        float firstObjectPosY = getPosY();
-
-        float secondObjectHeight = target.getPosY() + target.getHeight();
-        float secondObjectWidth = target.getPosX() + target.getWidth();
-        float secondObjectPosX = target.getPosX();
-        float secondObjectPosY = target.getPosY();
-
-        return ((firstObjectWidth + attackRange > secondObjectPosX) &&
-                (firstObjectPosX < secondObjectWidth + attackRange) &&
-                (firstObjectPosY < secondObjectHeight + attackRange) &&
-                (firstObjectHeight + attackRange > secondObjectPosY));
+        int attackRange = 50;
+        return (Math.sqrt(Math.pow(Math.abs(target.getPosX() - getPosX()), 2) + Math.pow(Math.abs(target.getPosY() - getPosY()), 2)) < attackRange);
     }
 }
